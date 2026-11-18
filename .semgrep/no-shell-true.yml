@@ -1,0 +1,6 @@
+rules:
+  - id: no-shell-true
+    languages: [python]
+    severity: ERROR
+    message: Do not run subprocesses with shell=True
+    pattern: subprocess.$FUNC(..., shell=True, ...)
