@@ -1,0 +1,6 @@
+pre-commit:
+  commands:
+    gitleaks:
+      skip:
+        - run: "! command -v gitleaks"
+      run: gitleaks git --pre-commit --staged --redact
