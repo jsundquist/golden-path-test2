@@ -1,0 +1,24 @@
+name: drift
+
+on:
+  schedule:
+    - cron: "23 6 * * 1" # Mondays at 06:23 UTC
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    environment: drift
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check for drift
+        env:
+          GH_TOKEN: ${{ secrets.DRIFT_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: bash .github/scripts/drift-check.sh "$REPO"
